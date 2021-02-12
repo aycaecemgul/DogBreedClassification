@@ -17,9 +17,9 @@ import tensorflow as tf
 from keras_preprocessing.image import ImageDataGenerator
 import sklearn
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.layers import Dense, Flatten,GlobalAveragePooling2D
+from tensorflow.keras.layers import Dense, Flatten,GlobalAveragePooling2D,Conv2D,Dropout
 from tensorflow.keras.applications.inception_v3 import InceptionV3
-
+from keras.callbacks import TensorBoard,ModelCheckpoint
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -129,16 +129,16 @@ model = tf.keras.Sequential()
 model.add(base_model)
 model.add(GlobalAveragePooling2D())
 
-
 model.add(Dense(10, activation='softmax'))
 
 model.summary()
 
 model.compile(loss="sparse_categorical_crossentropy", optimizer='adam', metrics=['accuracy'])
 
+
 aug = ImageDataGenerator()
 
-model.fit(aug.flow(X_train, y_train),validation_data = (X_val, y_val),epochs = 15,verbose=2)
+model.fit(aug.flow(X_train, y_train),validation_data = (X_val, y_val),epochs = 20,verbose=2)
 
 
 model.save("dog_classifier.model")

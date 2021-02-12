@@ -18,16 +18,16 @@ y_test = pickle.load(pickle_in)
 
 predict=model.predict([X_test])
 
-t=1
-
+t=10
 p=np.argmax(predict[t])
-
 q=y_test[t]
 
 print("Actual breed of the dog: "+str(CATEGORIES[q]))
 print("The prediction of the model: "+str(CATEGORIES[p]))
 
-X_test[t]=X_test[t].reshape(IMG_SIZE,IMG_SIZE,3)*255.0
+X_test[t]=X_test[t].reshape(IMG_SIZE,IMG_SIZE,3)
 
 plt.imshow(X_test[t])
+
+
 plt.show()
